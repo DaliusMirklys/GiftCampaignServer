@@ -35,7 +35,8 @@ module.exports = {
     ],
     createGiftItem: [
       body('title').trim().isLength({ min: 3 }),
-      body(['price', 'quantity']).trim().isNumeric(),
+      body('price').trim().isFloat({min: 0}),
+      body('quantity').trim().isInt({min: 1})
     ],
     createGiftBox: [
       body('giftBoxTitle').trim().isLength({ min: 3 }),

@@ -1,3 +1,4 @@
+require('dotenv').config()
 const bodyParser = require('body-parser');
 const express = require('express');
 const users = require('./src/controllers/users');
@@ -8,6 +9,7 @@ const validate = require('./src/validation/validate');
 const isAuth = require('./src/middlewares/isAuth')
 const rules = require('./src/validation/rules')
 const app = express();
+
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -56,7 +58,8 @@ app.use((error, req, res, next) => {
     .json({ message: error.message, data: error.data });
 });
 
-require('dotenv').config()
+
 const socket = require('./socket');
 const server = app.listen(process.env.PORT || 8080);
 socket.init(server);
+

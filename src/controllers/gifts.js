@@ -19,12 +19,13 @@ exports.send = async (req, res, next) => {
       UPDATE gift_items i, gift_boxes b
       SET i.quantity = i.quantity - b.itemQuantity
       WHERE b.id = ? AND i.id = b.item`, [req.body.giftBoxId])
+      io.getIO().emit('giftItemsChanged');
       setTimeout(async () => {
         await db.execute(
           'UPDATE sent_gifts SET status = "delivered", receivedDate = CURRENT_TIMESTAMP WHERE id = ?',
           [sentGift.insertId]
         );
-        io.getIO().emit('giftDelivered', { message: 'pristatyta' });
+        io.getIO().emit('giftDelivered');
       }, req.body.deliveryDuration * 1000);
       res.status(201).json({ message: 'Gift sent' });
     } catch (error) {
@@ -139,7 +140,7 @@ exports.rate = async (req, res, next) => {
         req.body.rating,
         req.body.giftId,
       ]);
-      //io.getIO().emit('giftRated', { message: 'ivertinta' });
+      io.getIO().emit('giftRated');
       res.status(200).json({ message: 'rating updated' });
     } catch (error) {
       next(new Error(error));

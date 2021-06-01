@@ -1,4 +1,5 @@
 const db = require('../../mysql');
+const io = require('../../socket')
 
 exports.get = async (req, res, next) => {
   try {
@@ -78,6 +79,7 @@ exports.create = async (req, res, next) => {
           )
       )
     );
+    io.getIO().emit('giftBoxesChanged');
     res.status(201).json({ message: 'Gift box created' });
   } catch (error) {
     next(new Error(error));
@@ -91,6 +93,7 @@ exports.delete = async (req, res, next) => {
     if(!response.affectedRows) await db.execute(`
     UPDATE gift_boxes SET status = "removed" WHERE id = ?`, 
     [req.params.id]);
+    io.getIO().emit('giftBoxesChanged');
     res.status(200).json({ message: 'Gift box removed' });
   } catch (error) {
     next(new Error(error));
