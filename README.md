@@ -1,4 +1,4 @@
-# # Gift Campaign app
+# Gift Campaign app
 
 This is my demo REST API project I created in two weeks for a position I applied.
 
