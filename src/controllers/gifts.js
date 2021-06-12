@@ -67,7 +67,7 @@ exports.getReceived = async (req, res, next) => {
         receivedDate: gift.receivedDate,
         message: gift.message,
         rating: gift.rating,
-        opened: gift.opened ? true : false,
+        opened: gift.opened,
         items: items,
       };
     });
@@ -158,7 +158,7 @@ exports.rate = async (req, res, next) => {
 };
 exports.open = async (req, res, next) => {
   try {
-    await db.execute('UPDATE sent_gifts SET opened = "1" WHERE id = ?', [
+    await db.execute('UPDATE sent_gifts SET opened = 1 WHERE id = ?', [
       req.params.id,
     ]);
     res.status(201).json({ message: 'gift opened' });
