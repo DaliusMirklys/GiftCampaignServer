@@ -47,7 +47,7 @@ exports.getReceived = async (req, res, next) => {
         WHERE i.id = b.item)) items
       FROM sent_gifts g
       JOIN gift_boxes b ON b.id = g.boxId
-      WHERE g.opened = "delivered" AND g.recipientId = ?
+      WHERE g.status = "delivered" AND g.recipientId = ?
       GROUP BY g.id
       ORDER BY g.receivedDate DESC`,
       [req.userId]
