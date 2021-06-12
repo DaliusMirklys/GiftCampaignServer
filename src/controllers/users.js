@@ -21,7 +21,7 @@ exports.login = async (req, res, next) => {
       }
       const expiresIn = 7200 // seconds
       const token = jwt.sign(
-        { userId: data[0].id, userRole: data[0].role },
+        { userId: data[0].id, userRole: data[0].role, userName: data[0].name },
         'slaptazodis',
         {
           expiresIn: expiresIn,
