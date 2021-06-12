@@ -50,6 +50,7 @@ app.get('/getHistory', isAuth, gifts.getHistory);
 app.delete('/deleteGiftItem/:id', isAuth, giftItems.delete);
 app.delete('/deleteGiftBox/:id', isAuth, giftBoxes.delete);
 app.put('/rateGift', isAuth, rules.rateGift, validate, gifts.rate);
+app.put('/openGift/:id', isAuth, gifts.open);
 app.put('/addQuantity/:id', isAuth, giftItems.add);
 app.put('/subtractQuantity/:id', isAuth, giftItems.subtract);
 app.use((error, req, res, next) => {
